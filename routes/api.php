@@ -14,3 +14,21 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->post(
+    'login',
+    'AuthController@login'
+);
+
+$router->group(
+    ['middleware' => 'api.auth'],
+    function() use ($router) {
+        $router->post('get-list-user', 'UsersController@getListUser');
+
+        $router->post('get-list-role', 'RoleController@getListRole');
+
+        $router->post('edit-role', 'RoleController@getListRole');
+
+        $router->post('update-status-role', 'RoleController@updateStatus');
+    }
+);
